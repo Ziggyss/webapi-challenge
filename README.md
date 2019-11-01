@@ -25,14 +25,19 @@ In this challenge, create a web API around the following resources: `Projects` a
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your Team Lead.
 
 - [ ] Mention two parts of Express that you learned about this week.
+      Middleware and Router.
 
 - [ ] Describe Middleware?
+      Middleware are functions that we can use to add features to Express. They come in various forms, including third party middleware,like CORS or Helmet. We can also write custom Middleware that take the request and response as parameters and can be written to reduce the amount of repetition in the code. They can be re-used throughout the code to do things like validate information and check for errors.
 
 - [ ] Describe a Resource?
+      In a RESTful API a Resource is an object with a type, associated data, relationships to other resources and a set of methods that operate on it.
 
 - [ ] What can the API return to help clients know if a request was successful?
+      Status codes, the response data and messages.
 
 - [ ] How can we partition our application into sub-applications?
+      We can use Express Routers.
 
 ## Project Setup
 
