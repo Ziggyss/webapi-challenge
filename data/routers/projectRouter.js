@@ -23,6 +23,22 @@ router.get("/:id", validateProjectId, (req, res) => {
   res.status(200).json(project);
 });
 
+router.get("/:id/actions", validateProjectId, (req, res) => {
+  Projects.getProjectActions(req.project.id)
+    .then(actions => {
+      res.status(200).json({
+        actions,
+        message: "Project actions received"
+      });
+    })
+    .catch(err => {
+      res.status(500).json({
+        message: "There was an error receiving the actions",
+        message: err.message
+      });
+    });
+});
+
 router.post("/", (req, res) => {
   const newProject = req.body;
   Projects.insert(newProject)
