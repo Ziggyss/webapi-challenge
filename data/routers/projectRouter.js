@@ -70,7 +70,7 @@ router.delete("/:id", validateProjectId, (req, res) => {
     });
 });
 
-router.put("/:id", validateProjectId, (req, res) => {
+router.put("/:id", [validateProjectId, validateProjectInfo], (req, res) => {
   const { id } = req.params;
   const updatedProject = req.body;
   Projects.update(id, updatedProject)
@@ -106,6 +106,24 @@ function validateProjectId(req, res, next) {
         message: err.message
       });
     });
+}
+
+function validateProjectInfo(req, res, next) {
+  if (!Object.keys(req.body).length) {
+    res.status(400).json({
+      message: "Please provide more information about your project"
+    });
+  } else if (!req.body.name) {
+    res.status(400).json({
+      message: "Please provide a project name"
+    });
+  } else if (!req.body.description) {
+    res.status(400).json({
+      message: "Please provide a project description"
+    });
+  } else {
+    next();
+  }
 }
 
 module.exports = router;

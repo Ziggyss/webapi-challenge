@@ -23,7 +23,7 @@ router.get("/:id", validateActionId, (req, res) => {
   res.status(200).json(action);
 });
 
-router.post("/", (req, res) => {
+router.post("/", validateActionInfo, (req, res) => {
   const newAction = req.body;
   Actions.insert(newAction)
     .then(action => {
@@ -90,6 +90,28 @@ function validateActionId(req, res, next) {
         message: err.message
       });
     });
+}
+
+function validateActionInfo(req, res, next) {
+  if (!Object.keys(req.body).length) {
+    res.status(400).json({
+      message: "Please provide more information about your action"
+    });
+  } else if (!req.body.project_id) {
+    res.status(400).json({
+      message: "Please provide a project ID for your action"
+    });
+  } else if (!req.body.description) {
+    res.status(400).json({
+      message: "Please provide a description for your action"
+    });
+  } else if (!req.body.notes) {
+    res.status(400).json({
+      message: "Please provide notes for your action"
+    });
+  } else {
+    next();
+  }
 }
 
 module.exports = router;
