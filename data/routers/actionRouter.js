@@ -34,7 +34,8 @@ router.post("/", validateActionInfo, (req, res) => {
     })
     .catch(err => {
       res.status(500).json({
-        message: "Something went wrong when adding the action",
+        message:
+          "Something went wrong when adding the action. Please check that there is a valid project ID",
         error: err.message
       });
     });
@@ -54,7 +55,7 @@ router.delete("/:id", validateActionId, (req, res) => {
     });
 });
 
-router.put("/:id", validateActionId, (req, res) => {
+router.put("/:id", [validateActionId, validateActionInfo], (req, res) => {
   const { id } = req.params;
   const updatedAction = req.body;
   Actions.update(id, updatedAction)
